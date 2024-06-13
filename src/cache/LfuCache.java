@@ -47,7 +47,7 @@ public class LfuCache<K, V> {
             }
 
             /* cache is full need to evict
-            key,value pair at minFreq in freqToLruMap needs to removed to make space for new entry
+            least recent key,value pair having minimum  freq needs to be removed to make space for new entry insert request
             */
             if (keyToFreqMap.size() == capacity) {
                 Map.Entry<Integer, LinkedHashMap<K, V>> minFreqEntry = freqToLruMap.firstEntry();
