@@ -2,13 +2,13 @@ package cache;
 
 import java.util.*;
 
-public class LfuCache<K, V> {
+public class LfuCacheUsingLinkedHashMap<K, V> {
 
     private int capacity;
     private TreeMap<Integer, LinkedHashMap<K, V>> freqToLruMap;
     private HashMap<K, Integer> keyToFreqMap;
 
-    public LfuCache(int capacity) {
+    public LfuCacheUsingLinkedHashMap(int capacity) {
 
         synchronized (this) {
             this.capacity = capacity;
@@ -88,7 +88,7 @@ public class LfuCache<K, V> {
         }
     }
 
-    public void showCache() {
+    public synchronized void showCache() {
         System.out.println("--------------CACHE PRINTED BELOW--------");
         for (Map.Entry<Integer, LinkedHashMap<K, V>> entry : freqToLruMap.entrySet()) {
             Integer freq = entry.getKey();
@@ -99,7 +99,7 @@ public class LfuCache<K, V> {
     }
 
     public static void main(String[] args) {
-        LfuCache<Integer, String> lfu = new LfuCache<>(3);
+        LfuCacheUsingLinkedHashMap<Integer, String> lfu = new LfuCacheUsingLinkedHashMap<>(3);
         lfu.put(1, "1");
         lfu.put(2, "1");
         lfu.put(1, "3");
@@ -108,7 +108,7 @@ public class LfuCache<K, V> {
         System.out.println("lfu.get(3): " + lfu.get(3));
         lfu.showCache();
 
-        lfu = new LfuCache<>(2);
+        lfu = new LfuCacheUsingLinkedHashMap<>(2);
         lfu.put(1, "1");
         lfu.put(2, "2");
         lfu.put(1, "1");
